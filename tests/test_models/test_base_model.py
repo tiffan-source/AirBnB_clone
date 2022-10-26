@@ -3,23 +3,23 @@
 test_base_model module define TestBaseModel class
 to test behavior of BaseModel class
 """
-
 import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 
-"""
-class Deriv use to perform write test
-"""
 
 class Deriv(BaseModel):
+    """
+    class Deriv use to perform write test
+    """
     pass
 
-"""
-class TestBaseModel
-test behavior of BaseModel class
-"""
+
 class TestBaseModel(unittest.TestCase):
+    """
+    class TestBaseModel
+    test behavior of BaseModel class
+    """
 
     def test_Base_class_documentation(self):
         self.assertIsNotNone(BaseModel.__doc__)
@@ -72,11 +72,11 @@ class TestBaseModel(unittest.TestCase):
 
     def test_str_value_for_instance(self):
         elt = BaseModel()
-        self.assertEqual(elf.str(), f"[BaseModel] ({elt.id}) {elt.__dict__}")
+        self.assertEqual(str(elt), f"[BaseModel] ({elt.id}) {elt.__dict__}")
 
     def test_str_value_for_instance_derivate_of_base(self):
         elt = Deriv()
-        self.assertEqual(elf.str(), f"[Deruv] ({elt.id}) {elt.__dict__}")
+        self.assertEqual(str(elt), f"[Deriv] ({elt.id}) {elt.__dict__}")
 
     def test_save_documentation(self):
         self.assertIsNotNone(BaseModel.save.__doc__)
@@ -84,7 +84,7 @@ class TestBaseModel(unittest.TestCase):
     def test_update_at_after_save(self):
         elt = BaseModel()
         prev = elt.updated_at
-        t = 99999999999 + 999999999 #Just to pass moment
+        t = 99999999999 + 999999999  # Just to pass moment
         elt.save()
         cur = elt.updated_at
         self.assertNotEqual(prev, cur)
