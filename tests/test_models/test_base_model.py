@@ -7,6 +7,7 @@ to test behavior of BaseModel class
 import unittest
 from models.base_model import BaseModel
 from datetime import datetime
+from uuid import uuid4
 
 """
 class Deriv use to perform write test
@@ -27,6 +28,19 @@ class TestBaseModel(unittest.TestCase):
     def test_module_base_documentation(self):
         import models.base_model
         self.assertIsNotNone(models.base_model.__doc__)
+
+    def test_init_pass_with_kwargs(self):
+        dct = {}
+        dct["id"] = "nouvel-id"
+        dct["updated_at"] = datetime(2000, 1, 1)
+        dct["created_at"] = datetime(2000, 1, 1)
+        dct["another_key"] = "another_value"
+
+        bsmodel = BaseModel(dct)
+        self.assertEqual("nouvel-id", bsmodel.id)
+        self.assertEqual("another_value", bsmodel.another_key)
+        self.assertEqual(datetime(2000, 1, 1), bsmodel.updated_at)
+        self.assertEqual(datetime(2000, 1, 1), bsmodel.created_at)
 
     def test_id_instance_exist(self):
         elt = BaseModel()
