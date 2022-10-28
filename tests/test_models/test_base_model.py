@@ -98,7 +98,7 @@ class TestBaseModel(unittest.TestCase):
     def test_update_at_after_save(self):
         elt = BaseModel()
         prev = elt.updated_at
-        t = 99999999999 + 999999999  # Just to pass moment
+        t = 99999999999 + 999999999 # Just to pass moment
         elt.save()
         cur = elt.updated_at
         self.assertNotEqual(prev, cur)
