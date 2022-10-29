@@ -4,7 +4,7 @@ define the base model class
 """
 from datetime import datetime
 from uuid import uuid4
-#from . import storage
+
 
 class BaseModel:
     """
