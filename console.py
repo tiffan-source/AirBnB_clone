@@ -30,6 +30,8 @@ class HBNBCommand(cmd.Cmd):
         """ Execution of the quit command """
         exit()
 
+    def do_create(self, arg):
+        pass
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
