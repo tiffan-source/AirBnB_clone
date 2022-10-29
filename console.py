@@ -4,6 +4,8 @@ import sys
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from shlex import split
+
 
 class HBNBCommand(cmd.Cmd):
     """Main Class for the command line interface"""
@@ -56,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) == 0:
             print("** class name missing *")
         else:
-            arg_lst = arg.split()
+            arg_lst = split(arg)
             if arg_lst[0] == "BaseModel":
                 if len(arg_lst) <= 1:
                     print("** instance id missing **")
@@ -76,7 +78,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) == 0:
             print("** class name missing *")
         else:
-            arg_lst = arg.split()
+            arg_lst = split(arg)
             if arg_lst[0] == "BaseModel":
                 if len(arg_lst) <= 1:
                     print("** instance id missing **")
@@ -105,6 +107,34 @@ class HBNBCommand(cmd.Cmd):
             print(lst)
         else:
             print("** class doesn't exist **")
+
+    def do_update(self, arg):
+        """
+        Updates an instance based on the class name
+        and id by adding or updating attribute
+        """
+        if len(arg) == 0:
+            print("** class name missing *")
+        else:
+            arg_lst = split(arg)
+            if arg_lst[0] == "BaseModel":
+                if len(arg_lst) <= 1:
+                    print("** instance id missing **")
+                else:
+                    key = arg_lst[0] + "." + arg_lst[1]
+                    if key in storage.all():
+                        if len(arg_lst) == 2:
+                            print("** attribute name missing **")
+                        elif len(arg_lst) == 3:
+                            print("** value missing **")
+                        else:
+                            setattr(storage.all()[key], arg_lst[2], arg_lst[3])
+                            storage.all()[key].save()
+                            storage.save()
+                    else:
+                        print("** no instance found **")
+            else:
+                print("** class doesn't exist **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
