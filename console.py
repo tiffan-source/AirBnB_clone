@@ -2,6 +2,8 @@
 """ Command Line program for the AirBnB project"""
 import sys
 import cmd
+from models.base_model import BaseModel
+from models import storage
 
 class HBNBCommand(cmd.Cmd):
     """Main Class for the command line interface"""
@@ -31,7 +33,20 @@ class HBNBCommand(cmd.Cmd):
         exit()
 
     def do_create(self, arg):
-        pass
+        """
+        Creates a new instance of BaseModel, saves it
+        (to the JSON file) and prints the id
+        """
+        if len(arg) == 0:
+            print("** class name missing **")
+        else:
+            if arg == "BaseModel":
+                new_base_model = BaseModel()
+                storage.new(new_base_model)
+                storage.save()
+                print(new_base_model.id)
+            else:
+                print("** class doesn't exist **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
