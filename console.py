@@ -94,8 +94,17 @@ class HBNBCommand(cmd.Cmd):
         Prints all string representation of all
         instances based or not on the class name
         """
-#        get_all_cpy = storage.all().copy()
-        print("Hello")
+        get_all_cpy = storage.all().copy()
+        lst = []
+
+        if arg == "BaseModel":
+            for key, value in get_all_cpy.items():
+                if key.split(".")[0] == "BaseModel":
+                    lst.append(str(get_all_cpy[key]))
+
+            print(lst)
+        else:
+            print("** class doesn't exist **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
