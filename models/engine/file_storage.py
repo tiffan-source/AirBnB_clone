@@ -54,6 +54,6 @@ class FileStorage:
                 dct_obj = json.load(file_objet)
 
             for key, value in dct_obj.items():
-                dct_obj_convert[key] = BaseModel(value)
+                dct_obj_convert[key] = BaseModel(**value)
 
             self.__objects = dct_obj_convert
