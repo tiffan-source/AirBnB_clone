@@ -89,5 +89,13 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
 
+    def do_all(self, arg):
+        """
+        Prints all string representation of all
+        instances based or not on the class name
+        """
+#        get_all_cpy = storage.all().copy()
+        print("Hello")
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

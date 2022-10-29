@@ -55,5 +55,5 @@ class FileStorage:
 
             for key, value in dct_obj.items():
                 dct_obj_convert[key] = BaseModel(value)
-
+            print(dct_obj)
             self.__objects = dct_obj_convert
