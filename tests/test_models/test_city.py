@@ -6,13 +6,6 @@ import unittest
 from models.city import City
 
 
-class Deriv(City):
-    """
-    Class Deriv used to perform write test
-    """
-    pass
-
-
 class TestCity(unittest.TestCase):
     """
     TestCity - Test behavior of City Class
