@@ -10,17 +10,17 @@ The AriBnB clone project is a simple copy of the Airbnb website that implement f
 
 ## The command interpreter
 
-( It will be descripe soon )
-"""This module defines the entry point of the command interpreter.
 It defines one class, `HBNBCommand()`, which sub-classes the `cmd.Cmd` class.
-This module defines abstractions that allows us to manipulate a powerful
-storage system (FileStorage / DB). This abstraction will also allow us to
-change the type of storage easily without updating all of our codebase.
+
+This module defines abstractions that allows us to manipulate a powerful storage system (FileStorage / DB). This abstraction will also allow us to change the type of storage easily without updating all of our codebase.
+
 It allows us to interactively and non-interactively:
-    - create a data model
-    - manage (create, update, destroy, etc) objects via a console / interpreter
-    - store and persist objects to a file (JSON file)
-Typical usage example:
+    - Create a data model
+    - Manage (create, update, destroy, etc) objects via a console / interpreter
+    - Store and persist objects to a file (JSON file)
+
+Usage example:
+
     $ ./console
     (hbnb)
     (hbnb) help
@@ -29,4 +29,5 @@ Typical usage example:
     EOF  create  help  quit
     (hbnb)
     (hbnb) quit
+
     $
