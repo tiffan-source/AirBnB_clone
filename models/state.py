@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """
-module define Amenity class
+module define State class
 """
 from models.base_model import BaseModel
 
 
-class Amenity(BaseModel):
+class State(BaseModel):
     """
-    class Amenity extends of BaseModel
+    class State extends of BaseModel
     """
     name = ""
