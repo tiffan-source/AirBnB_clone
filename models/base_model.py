@@ -40,7 +40,6 @@ class BaseModel:
         from . import storage
         storage.save()
 
-
     def to_dict(self):
         """
         to_dict - returns a dictionary containing

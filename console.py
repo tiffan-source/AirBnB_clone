@@ -37,7 +37,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return -1
 
-
     def emptyline(self):
         """ Empty line not displaying anything """
         pass
@@ -85,7 +84,6 @@ class HBNBCommand(cmd.Cmd):
             key = lst_tmp[0] + "." + lst_tmp[1]
             print(storage.all()[key])
 
-
     def do_destroy(self, arg):
         """
         Deletes an instance based on the class name and id
@@ -95,7 +93,6 @@ class HBNBCommand(cmd.Cmd):
             key = lst_tmp[0] + "." + lst_tmp[1]
             del storage.all()[key]
             storage.save()
-
 
     def do_all(self, arg):
         """
