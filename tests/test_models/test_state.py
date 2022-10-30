@@ -6,13 +6,6 @@ import unittest
 from models.state import State
 
 
-class Deriv(State):
-    """
-    Class Deriv used to perform write test
-    """
-    pass
-
-
 class TestState(unittest.TestCase):
     """
     TestState - Test behavior of State Class

@@ -6,13 +6,6 @@ import unittest
 from models.review import Review
 
 
-class Deriv(Review):
-    """
-    Class Deriv used to perform write test
-    """
-    pass
-
-
 class TestReview(unittest.TestCase):
     """
     TestReview - Test behavior of Review Class

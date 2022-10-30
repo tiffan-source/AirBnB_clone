@@ -6,13 +6,6 @@ import unittest
 from models.amenity import Amenity
 
 
-class Deriv(Amenity):
-    """
-    Class Deriv used to perform write test
-    """
-    pass
-
-
 class TestAmenity(unittest.TestCase):
     """
     TestAmenity - Test behavior of Amenity Class

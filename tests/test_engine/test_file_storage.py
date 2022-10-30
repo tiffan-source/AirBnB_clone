@@ -36,8 +36,10 @@ class TestFileStorage(unittest.TestCase):
         test_base = BaseModel()
         fs.new(test_base)
 
-        self.assertTrue(f"{test_base.__class__.__name__}.{test_base.id}" in fs.all())
-        self.assertEqual(test_base, fs.all()[f"{test_base.__class__.__name__}.{test_base.id}"])
+        key = test_base.__class__.__name__
+
+        self.assertTrue(f"{key}.{test_base.id}" in fs.all())
+        self.assertEqual(test_base, fs.all()[f"{key}.{test_base.id}"])
 
     def test_save(self):
         fs = FileStorage()
@@ -45,9 +47,3 @@ class TestFileStorage(unittest.TestCase):
         fs.new(test_base)
         fs.save()
         fs.reload()
-
-    # def test_reload(self):
-    #     fs = FileStorage()
-    #     fs.reload()
-    #     obj = fs.all()
-    #     self.assertNotEqual(0, len(obj))

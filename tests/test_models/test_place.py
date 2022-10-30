@@ -6,13 +6,6 @@ import unittest
 from models.place import Place
 
 
-class Deriv(Place):
-    """
-    Class Deriv used to perform write test
-    """
-    pass
-
-
 class TestPlace(unittest.TestCase):
     """
     TestPlace - Test behavior of Place Class

@@ -9,13 +9,6 @@ from datetime import datetime
 from uuid import uuid4
 
 
-class Deriv(BaseModel):
-    """
-    class Deriv use to perform write test
-    """
-    pass
-
-
 class TestBaseModel(unittest.TestCase):
     """
     class TestBaseModel
@@ -87,10 +80,6 @@ class TestBaseModel(unittest.TestCase):
     def test_str_value_for_instance(self):
         elt = BaseModel()
         self.assertEqual(str(elt), f"[BaseModel] ({elt.id}) {elt.__dict__}")
-
-    def test_str_value_for_instance_derivate_of_base(self):
-        elt = Deriv()
-        self.assertEqual(str(elt), f"[Deriv] ({elt.id}) {elt.__dict__}")
 
     def test_save_documentation(self):
         self.assertIsNotNone(BaseModel.save.__doc__)
