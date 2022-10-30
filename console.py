@@ -15,6 +15,11 @@ class HBNBCommand(cmd.Cmd):
     if (sys.__stdin__.isatty()):
         prompt = '(hbnb) '
 
+    def preloop(self):
+        """Prints if isatty is false"""
+        if not sys.__stdin__.isatty():
+            print('(hbnb)')
+
     @classmethod
     def check_entitie(cls, arg):
         if len(arg) == 0:
