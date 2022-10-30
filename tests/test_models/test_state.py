@@ -15,7 +15,7 @@ class Deriv(State):
 
 class TestState(unittest.TestCase):
     """
-	TestState - Test behavior of State Class
+    TestState - Test behavior of State Class
     """
 
     def test_Base_class_documentation(self):

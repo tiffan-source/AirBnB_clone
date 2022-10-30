@@ -15,7 +15,7 @@ class Deriv(Place):
 
 class TestPlace(unittest.TestCase):
     """
-	TestPlace - Test behavior of Place Class
+    TestPlace - Test behavior of Place Class
     """
 
     def test_Base_class_documentation(self):

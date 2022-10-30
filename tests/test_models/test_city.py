@@ -15,7 +15,7 @@ class Deriv(City):
 
 class TestCity(unittest.TestCase):
     """
-	TestCity - Test behavior of City Class
+    TestCity - Test behavior of City Class
     """
 
     def test_Base_class_documentation(self):
