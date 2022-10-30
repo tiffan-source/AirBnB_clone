@@ -132,6 +132,8 @@ class HBNBCommand(cmd.Cmd):
                 setattr(storage.all()[key], arg_lst[2], arg_lst[3])
                 storage.all()[key].save()
                 storage.save()
+        else:
+            print("** no instance found **")
 
 
 if __name__ == '__main__':
