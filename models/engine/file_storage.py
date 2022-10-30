@@ -5,6 +5,12 @@ module file_storage define FileStorage class
 import json
 from os.path import exists
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.review import Review
+from models.amenity import Amenity
+from models.place import Place
 
 
 class FileStorage:
@@ -46,14 +52,22 @@ class FileStorage:
         (only if the JSON file (__file_path) exists ;
         otherwise, do nothing
         """
+        classes = {
+            'BaseModel': BaseModel, 'User': User,
+            'Amenity': Amenity, 'City': City, 'State': State,
+            'Place': Place, 'Review': Review
+        }
         dct_obj = {}
         dct_obj_convert = {}
 
         if exists(self.__file_path):
             with open(self.__file_path, "r") as file_objet:
-                dct_obj = json.load(file_objet)
+                try:
+                    dct_obj = json.load(file_objet)
+                except json.JSONDecodeError:
+                    pass
 
             for key, value in dct_obj.items():
-                dct_obj_convert[key] = BaseModel(**value)
+                dct_obj_convert[key] = classes[key.split('.')[0]](**value)
 
             self.__objects = dct_obj_convert
