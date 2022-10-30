@@ -13,10 +13,11 @@ class BaseModel:
     """
 
     def __init__(self, *arg, **kwargs):
-
         if len(kwargs) == 0:
             self.id = str(uuid4())
             self.created_at = self.updated_at = datetime.now()
+            from . import storage
+            storage.new(self)
         else:
             for key, value in kwargs.items():
                 if not key == "__class__":
@@ -36,14 +37,16 @@ class BaseModel:
         attribute updated_at with the current datetime
         """
         self.updated_at = datetime.now()
+        from . import storage
+        storage.save()
+
 
     def to_dict(self):
         """
         to_dict - returns a dictionary containing
         all keys/values of __dict__ of the instance
         """
-
-        rep = self.__dict__
+        rep = self.__dict__.copy()
         rep["__class__"] = self.__class__.__name__
         rep["created_at"] = self.created_at.isoformat()
         rep["updated_at"] = self.updated_at.isoformat()
