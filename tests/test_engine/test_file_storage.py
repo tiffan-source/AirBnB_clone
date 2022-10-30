@@ -6,7 +6,7 @@ to test behavior of FileStorage class
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
-
+from models.user import User
 
 class TestFileStorage(unittest.TestCase):
     """
@@ -39,10 +39,18 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(f"{test_base.__class__.__name__}.{test_base.id}" in fs.all())
         self.assertEqual(test_base, fs.all()[f"{test_base.__class__.__name__}.{test_base.id}"])
 
+        test_user = User()
+        fs.new(test_user)
+
+        self.assertTrue(f"{test_user.__class__.__name__}.{test_user.id}" in fs.all())
+        self.assertEqual(test_user, fs.all()[f"{test_user.__class__.__name__}.{test_user.id}"])
+
     def test_save(self):
         fs = FileStorage()
         test_base = BaseModel()
+        test_user = User()
         fs.new(test_base)
+        fs.new(test_user)
         fs.save()
         fs.reload()
 

@@ -5,6 +5,7 @@ module file_storage define FileStorage class
 import json
 from os.path import exists
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -54,6 +55,9 @@ class FileStorage:
                 dct_obj = json.load(file_objet)
 
             for key, value in dct_obj.items():
-                dct_obj_convert[key] = BaseModel(**value)
+                if value["__class__"] == "BaseModel":
+                    dct_obj_convert[key] = BaseModel(**value)
+                elif value["__class__"] == "User":
+                    dct_obj_convert[key] = User(**value)
 
             self.__objects = dct_obj_convert

@@ -3,6 +3,7 @@
 import sys
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 from shlex import split
 
@@ -10,7 +11,7 @@ from shlex import split
 class HBNBCommand(cmd.Cmd):
     """Main Class for the command line interface"""
 
-    __class_allow = ["BaseModel"]
+    __class_allow = ["BaseModel", "User"]
 
     if (sys.__stdin__.isatty()):
         prompt = '(hbnb) '
@@ -61,7 +62,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """
-        Creates a new instance of BaseModel, saves it
+        Creates a new instance, saves it
         (to the JSON file) and prints the id
         """
         if len(arg) == 0:
@@ -72,6 +73,11 @@ class HBNBCommand(cmd.Cmd):
                 storage.new(new_base_model)
                 storage.save()
                 print(new_base_model.id)
+            elif arg == "User":
+                new_user = User()
+                storage.new(new_user)
+                storage.save()
+                print(new_user.id)
             else:
                 print("** class doesn't exist **")
 
