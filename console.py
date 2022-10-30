@@ -2,18 +2,34 @@
 """ Command Line program for the AirBnB project"""
 import sys
 import cmd
-from models.base_model import BaseModel
 from models import storage
 from shlex import split
+from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+from models.state import State
+
+classes = {'BaseModel': BaseModel, 'User': User,
+        'Amenity': Amenity, 'City': City, 'State': State,
+        'Place': Place, 'Review': Review
+}
 
 
 class HBNBCommand(cmd.Cmd):
     """Main Class for the command line interface"""
 
-    __class_allow = ["BaseModel"]
+    __class_allow = ["BaseModel", "User", "Place",
+        "State", "City", "Amenity", "Review"]
 
     if (sys.__stdin__.isatty()):
         prompt = '(hbnb) '
+
+    def precmd(self, line):
+        """Function for precmd loop"""
+        return super().precmd(line)
 
     def preloop(self):
         """Prints if isatty is false"""
@@ -22,6 +38,7 @@ class HBNBCommand(cmd.Cmd):
 
     @classmethod
     def check_entitie(cls, arg):
+        """Checks on entities to validate classname attributes and values"""
         if len(arg) == 0:
             print("** class name missing *")
             return -1
@@ -42,6 +59,17 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return -1
 
+    @classmethod
+    def check_attribute(cls, args):
+        """Checks on args to validate classname attributes and values"""
+        if len(args) < 3:
+            print("** attribute name missing **")
+            return False
+        if len(args) < 4:
+            print("** value missing **")
+            return False
+        return True
+
     def emptyline(self):
         """ Empty line not displaying anything """
         pass
@@ -54,30 +82,32 @@ class HBNBCommand(cmd.Cmd):
         """ Help for the quit cmd"""
         print("Quit command to exit the program\n")
 
+    def do_help(self, arg):
+        """ Execution of the Help cmd"""
+        return super().do_help(arg)
+
     def do_EOF(self, arg):
         """ Execution of the EOF """
-        print()
-        exit()
+        print("")
+        return True
 
     def do_quit(self, command):
         """ Execution of the quit command """
-        exit()
+        return True
 
     def do_create(self, arg):
         """
-        Creates a new instance of BaseModel, saves it
+        Creates a new instance of new Object, saves it
         (to the JSON file) and prints the id
         """
-        if len(arg) == 0:
-            print("** class name missing **")
-        else:
-            if arg == "BaseModel":
-                new_base_model = BaseModel()
-                storage.new(new_base_model)
-                storage.save()
-                print(new_base_model.id)
-            else:
-                print("** class doesn't exist **")
+        args = arg.split()
+        if not self.check_entitie(args):
+            return
+
+        new_obj = classes[args[0]]()
+        storage.new(new_obj)
+        storage.save()
+        print(new_obj.id)
 
     def do_show(self, arg):
         """
@@ -123,17 +153,11 @@ class HBNBCommand(cmd.Cmd):
         """
         if self.check_entitie(arg) == 0:
             arg_lst = split(arg)
-            if len(arg_lst) == 2:
-                print("** attribute name missing **")
-            elif len(arg_lst) == 3:
-                print("** value missing **")
-            else:
+            if self.check_attribute(arg_lst) == 0:
                 key = arg_lst[0] + "." + arg_lst[1]
                 setattr(storage.all()[key], arg_lst[2], arg_lst[3])
                 storage.all()[key].save()
                 storage.save()
-        else:
-            print("** no instance found **")
 
 
 if __name__ == '__main__':
