@@ -15,7 +15,7 @@ class Deriv(Amenity):
 
 class TestAmenity(unittest.TestCase):
     """
-	TestAmenity - Test behavior of Amenity Class
+    TestAmenity - Test behavior of Amenity Class
     """
 
     def test_Base_class_documentation(self):

@@ -12,17 +12,15 @@ from models.amenity import Amenity
 from models.review import Review
 from models.state import State
 
-classes = {'BaseModel': BaseModel, 'User': User,
-        'Amenity': Amenity, 'City': City, 'State': State,
-        'Place': Place, 'Review': Review
-}
+classes = {'BaseModel': BaseModel, 'User': User, 'Amenity': Amenity,
+           'City': City, 'State': State, 'Place': Place, 'Review': Review}
 
 
 class HBNBCommand(cmd.Cmd):
     """Main Class for the command line interface"""
 
     __class_allow = ["BaseModel", "User", "Place",
-        "State", "City", "Amenity", "Review"]
+                     "State", "City", "Amenity", "Review"]
 
     if (sys.__stdin__.isatty()):
         prompt = '(hbnb) '
