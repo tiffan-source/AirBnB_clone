@@ -13,6 +13,9 @@ class BaseModel:
     """
 
     def __init__(self, *arg, **kwargs):
+        """
+        __init__ - Initialization of the BaseModel
+        """
         if len(kwargs) == 0:
             self.id = str(uuid4())
             self.created_at = self.updated_at = datetime.now()
