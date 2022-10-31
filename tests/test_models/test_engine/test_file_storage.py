@@ -6,6 +6,7 @@ to test behavior of FileStorage class
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from datetime import datetime
 
 
 class TestFileStorage(unittest.TestCase):
@@ -13,6 +14,12 @@ class TestFileStorage(unittest.TestCase):
     class TestFileStorage
     test behavior of FileStorage class
     """
+
+    def setUp(self):
+        with open(FileStorage._FileStorage__file_path, "w") as fle:
+            fle.write("")
+
+#    def tearDown(self):
 
     def test_module_doc(self):
         import models.engine.file_storage
@@ -41,9 +48,24 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(f"{key}.{test_base.id}" in fs.all())
         self.assertEqual(test_base, fs.all()[f"{key}.{test_base.id}"])
 
-    def test_save(self):
+    def test_save_record_data_in_file(self):
         fs = FileStorage()
-        test_base = BaseModel()
-        fs.new(test_base)
+        t_b = BaseModel()
+        fs.new(t_b)
         fs.save()
-        fs.reload()
+
+        with open(FileStorage._FileStorage__file_path, "r") as fle:
+            line_to_test = fle.readline()
+            tab_to_verif = line_to_test.split("\"")
+            self.assertIn(f"BaseModel.{t_b.id}", tab_to_verif)
+            date_up = f"{datetime.isoformat(t_b.updated_at)}"
+            date_cr = f"{datetime.isoformat(t_b.created_at)}"
+            self.assertIn(date_up, tab_to_verif)
+            self.assertIn(date_cr, tab_to_verif)
+
+    # def test_save(self):
+    #     fs = FileStorage()
+    #     test_base = BaseModel()
+    #     fs.new(test_base)
+    #     fs.save()
+    #     fs.reload()
