@@ -6,6 +6,7 @@ to test behavior of FileStorage class
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models.user import User
 from datetime import datetime
 from os.path import exists
 
@@ -38,6 +39,28 @@ class TestFileStorage(unittest.TestCase):
     def test_all_return_dict(self):
         new = FileStorage()
         self.assertIsInstance(new.all(), dict)
+
+    # def test_all_return_dict_value(self):
+    #     pass
+
+    def test_reload(self):
+        t_b = BaseModel()
+        t_u = User()
+
+        fs = FileStorage()
+        fs.new(t_b)
+        fs.new(t_u)
+
+        fs.save()
+
+        fs.reload()
+
+        true_data = FileStorage._FileStorage__objects
+
+        id_u = f"User.{t_u.id}"
+        id_b = f"BaseModel.{t_b.id}"
+        self.assertIn(id_u, true_data)
+        self.assertIn(id_b, true_data)
 
     def test_new_set_obj_and_all_get_it(self):
         fs = FileStorage()
