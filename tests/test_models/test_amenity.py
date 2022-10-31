@@ -11,9 +11,15 @@ class TestAmenity(unittest.TestCase):
     TestAmenity - Test behavior of Amenity Class
     """
 
-    def test_Base_class_documentation(self):
+    def test_Amenity_class_documentation(self):
+        """
+        test_Amenity_class_documentation - test doc inside class
+        """
         self.assertIsNotNone(Amenity.__doc__)
 
-    def test_module_base_documentation(self):
+    def test_module_ametiy_documentation(self):
+        """
+        test_module_ametiy_documentation - test amenity module doc
+        """
         import models.amenity
         self.assertIsNotNone(models.amenity.__doc__)

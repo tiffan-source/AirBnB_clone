@@ -15,10 +15,14 @@ class TestUser(TestBaseModel):
         self.name = "User"
         self.value = User
 
-    def test_Base_class_documentation(self):
+    def test_User_class_documentation(self):
+        """
+        test User class documentation
+        """
         self.assertIsNotNone(User.__doc__)
 
-    def test_module_base_documentation(self):
+    def test_module_user_documentation(self):
+        """ Check module user documentation """
         import models.user
         self.assertIsNotNone(models.user.__doc__)
 

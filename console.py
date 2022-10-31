@@ -39,23 +39,23 @@ class HBNBCommand(cmd.Cmd):
         """Checks on entities to validate classname attributes and values"""
         if len(arg) == 0:
             print("** class name missing *")
-            return -1
+            return False
 
         arg_lst = split(arg)
         if arg_lst[0] in cls.__class_allow:
             if len(arg_lst) <= 1:
                 print("** instance id missing **")
-                return -1
+                return False
             else:
                 key = arg_lst[0] + "." + arg_lst[1]
                 if key in storage.all():
-                    return 0
+                    return True
                 else:
                     print("** no instance found **")
-                    return -1
+                    return False
         else:
             print("** class doesn't exist **")
-            return -1
+            return False
 
     @classmethod
     def check_attribute(cls, args):
@@ -98,8 +98,13 @@ class HBNBCommand(cmd.Cmd):
         Creates a new instance of new Object, saves it
         (to the JSON file) and prints the id
         """
-        args = arg.split()
-        if not self.check_entitie(args):
+        args = split(arg)
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+
+        if not args[0] in self.__class_allow:
+            print("** class doesn't exist **")
             return
 
         new_obj = classes[args[0]]()
@@ -112,7 +117,7 @@ class HBNBCommand(cmd.Cmd):
         Prints the string representation of an instance
         based on the class name and id
         """
-        if self.check_entitie(arg) == 0:
+        if self.check_entitie(arg):
             lst_tmp = split(arg)
             key = lst_tmp[0] + "." + lst_tmp[1]
             print(storage.all()[key])
@@ -121,7 +126,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Deletes an instance based on the class name and id
         """
-        if self.check_entitie(arg) == 0:
+        if self.check_entitie(arg):
             lst_tmp = split(arg)
             key = lst_tmp[0] + "." + lst_tmp[1]
             del storage.all()[key]
@@ -149,9 +154,9 @@ class HBNBCommand(cmd.Cmd):
         Updates an instance based on the class name
         and id by adding or updating attribute
         """
-        if self.check_entitie(arg) == 0:
+        if self.check_entitie(arg):
             arg_lst = split(arg)
-            if self.check_attribute(arg_lst) == 0:
+            if self.check_attribute(arg_lst):
                 key = arg_lst[0] + "." + arg_lst[1]
                 setattr(storage.all()[key], arg_lst[2], arg_lst[3])
                 storage.all()[key].save()
