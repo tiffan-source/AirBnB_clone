@@ -154,3 +154,11 @@ class TestBaseModel(unittest.TestCase):
         """
         elt = BaseModel()
         self.assertTrue(isinstance(elt.to_dict(), dict))
+
+    def test_class_add_after_to_dict(self):
+        """
+        test that __class__ is add after to_dict method
+        """
+        elt = BaseModel()
+        dict_result = elt.to_dict()
+        self.assertTrue("__class__" in dict_result)
