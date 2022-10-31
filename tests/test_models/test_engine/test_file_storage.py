@@ -7,6 +7,7 @@ import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from datetime import datetime
+from os.path import exists
 
 
 class TestFileStorage(unittest.TestCase):
@@ -63,6 +64,13 @@ class TestFileStorage(unittest.TestCase):
             self.assertIn(date_up, tab_to_verif)
             self.assertIn(date_cr, tab_to_verif)
 
+    def test_file_exist_after_save(self):
+        fs = FileStorage()
+        t_b = BaseModel()
+        fs.new(t_b)
+        fs.save()
+
+        self.assertTrue(exists(FileStorage._FileStorage__file_path))
     # def test_save(self):
     #     fs = FileStorage()
     #     test_base = BaseModel()
