@@ -141,18 +141,18 @@ class HBNBCommand(cmd.Cmd):
         lst = []
 
         if len(arg) == 0:
-            return
-
-        arg_split = split(arg)
-
-        if arg_split[0] in self.__class_allow:
             for key, value in get_all_cpy.items():
-                if key.split(".")[0] == arg_split[0]:
-                    lst.append(str(get_all_cpy[key]))
-
+                lst.append(str(get_all_cpy[key]))
             print(lst)
         else:
-            print("** class doesn't exist **")
+            arg_split = split(arg)
+
+            if arg_split[0] in self.__class_allow:
+                for key, value in get_all_cpy.items():
+                    if key.split(".")[0] == arg_split[0]:
+                        lst.append(str(get_all_cpy[key]))
+
+                print(lst)
 
     def do_update(self, arg):
         """
