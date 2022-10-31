@@ -4,6 +4,7 @@ test_review module : Test behavior of Review Class
 """
 import unittest
 from models.amenity import Amenity
+from models.base_model import BaseModel
 
 
 class TestAmenity(unittest.TestCase):
@@ -23,3 +24,12 @@ class TestAmenity(unittest.TestCase):
         """
         import models.amenity
         self.assertIsNotNone(models.amenity.__doc__)
+
+    def test_amenity_deriv_base(self):
+        self.assertTrue(issubclass(Amenity, BaseModel))
+
+    def test_amenity_field(self):
+        self.assertIsInstance(Amenity.name, str)
+
+    def test_amenity_field_value(self):
+        self.assertEqual("", Amenity.name)
