@@ -139,7 +139,12 @@ class HBNBCommand(cmd.Cmd):
         """
         get_all_cpy = storage.all().copy()
         lst = []
+
+        if len(arg) == 0:
+            return
+
         arg_split = split(arg)
+
         if arg_split[0] in self.__class_allow:
             for key, value in get_all_cpy.items():
                 if key.split(".")[0] == arg_split[0]:
