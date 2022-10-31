@@ -38,7 +38,7 @@ class HBNBCommand(cmd.Cmd):
     def check_entitie(cls, arg):
         """Checks on entities to validate classname attributes and values"""
         if len(arg) == 0:
-            print("** class name missing *")
+            print("** class name missing **")
             return False
 
         arg_lst = split(arg)
@@ -151,8 +151,9 @@ class HBNBCommand(cmd.Cmd):
                 for key, value in get_all_cpy.items():
                     if key.split(".")[0] == arg_split[0]:
                         lst.append(str(get_all_cpy[key]))
-
                 print(lst)
+            else:
+                print("** class doesn't exist **")
 
     def do_update(self, arg):
         """
