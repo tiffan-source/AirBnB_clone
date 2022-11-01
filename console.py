@@ -22,17 +22,49 @@ class HBNBCommand(cmd.Cmd):
     __class_allow = ["BaseModel", "User", "Place",
                      "State", "City", "Amenity", "Review"]
 
+    __cmd_list = ["all", "count", "show", "destroy", "update"]
+
     if (sys.__stdin__.isatty()):
         prompt = '(hbnb) '
 
     def precmd(self, line):
         """Function for precmd loop"""
-        return super().precmd(line)
+        _cmd = _cls = _id = _args = ''
+
+        if not ('.' in line and '(' in line and ')' in line):
+            return line
+
+        try:
+            pline = line[:]
+            _cls = pline[:pline.find('.')]
+
+            _cmd = pline[pline.find('.') + 1:pline.find('(')]
+            if _cmd not in self.__cmd_list:
+                raise Exception
+
+            pline = pline[pline.find('(') + 1:pline.find(')')]
+
+            if pline:
+                pline = pline.partition(', ')
+                _id = pline[0].replace('\"', '')
+                pline = pline[2].strip()
+                if pline:
+                    if pline[0] == '{' and pline[-1] == '}'\
+                            and type(eval(pline)) is dict:
+                        _args = pline
+                    else:
+                        _args = pline.replace(',', '')
+            line = ' '.join([_cmd, _cls, _id, _args])
+
+        except Exception as mess:
+            pass
+        finally:
+            return line
 
     def preloop(self):
         """Prints if isatty is false"""
         if not sys.__stdin__.isatty():
-            print('(hbnb)')
+            print('(hbnb) ', end='')
 
     @classmethod
     def check_entitie(cls, arg):
@@ -80,6 +112,10 @@ class HBNBCommand(cmd.Cmd):
         """ Help for the quit cmd"""
         print("Quit command to exit the program\n")
 
+    def help_count(self):
+        """ Help for the quit cmd"""
+        print("Usage: count <class_name>")
+
     def do_help(self, arg):
         """ Execution of the Help cmd"""
         return super().do_help(arg)
@@ -92,6 +128,14 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, command):
         """ Execution of the quit command """
         return True
+
+    def do_count(self, args):
+        """Count current number of class instances"""
+        count = 0
+        for k, v in storage.all().items():
+            if args == k.split('.')[0]:
+                count += 1
+        print(count)
 
     def do_create(self, arg):
         """
