@@ -39,7 +39,7 @@ class HBNBCommand(cmd.Cmd):
             _cls = pline[:pline.find('.')]
 
             _cmd = pline[pline.find('.') + 1:pline.find('(')]
-            if _cmd not in self.__cmd_list:
+            if _cmd not in HBNBCommand.__cmd_list:
                 raise Exception
 
             pline = pline[pline.find('(') + 1:pline.find(')')]
@@ -64,7 +64,7 @@ class HBNBCommand(cmd.Cmd):
     def preloop(self):
         """Prints if isatty is false"""
         if not sys.__stdin__.isatty():
-            print('(hbnb) ', end='')
+            print('(hbnb)')
 
     @classmethod
     def check_entitie(cls, arg):
